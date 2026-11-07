@@ -31,6 +31,11 @@ class MainActivity : ComponentActivity() {
 fun MovieCreatorApp() {
     var videoUri by remember { mutableStateOf<Uri?>(null) }
     var script by remember { mutableStateOf("") }
+    var narrationLanguage by remember { mutableStateOf("العربية") }
+var subtitleLanguage by remember { mutableStateOf("العربية") }
+var voiceType by remember { mutableStateOf("رجل") }
+var voiceSpeed by remember { mutableStateOf("1.0x") }
+var videoQuality by remember { mutableStateOf("1080p") }
     val picker = rememberLauncherForActivityResult(
         ActivityResultContracts.OpenDocument()
     ) { uri -> videoUri = uri }
@@ -138,6 +143,82 @@ OutlinedTextField(
     modifier = Modifier.fillMaxWidth(),
     minLines = 4
 )
+Spacer(Modifier.height(20.dp))
+
+Text(
+    "إعدادات إنتاج الفيديو",
+    color = Color.White,
+    fontSize = 20.sp,
+    fontWeight = FontWeight.Bold
+)
+
+Spacer(Modifier.height(12.dp))
+
+Card(
+    modifier = Modifier.fillMaxWidth(),
+    colors = CardDefaults.cardColors(
+        containerColor = Color(0xFF1F2435)
+    )
+) {
+    Column(modifier = Modifier.padding(15.dp)) {
+
+        Text("لغة التعليق الصوتي", color = Color.White)
+        Button(onClick = {
+            narrationLanguage =
+                if (narrationLanguage == "العربية") "English"
+                else "العربية"
+        }) {
+            Text(narrationLanguage)
+        }
+
+        Spacer(Modifier.height(8.dp))
+
+        Text("لغة الترجمة", color = Color.White)
+        Button(onClick = {
+            subtitleLanguage =
+                if (subtitleLanguage == "العربية") "English"
+                else "العربية"
+        }) {
+            Text(subtitleLanguage)
+        }
+
+        Spacer(Modifier.height(8.dp))
+
+        Text("نوع الراوي", color = Color.White)
+        Button(onClick = {
+            voiceType =
+                if (voiceType == "رجل") "امرأة"
+                else "رجل"
+        }) {
+            Text(voiceType)
+        }
+
+        Spacer(Modifier.height(8.dp))
+
+        Text("سرعة الصوت", color = Color.White)
+        Button(onClick = {
+            voiceSpeed = when (voiceSpeed) {
+                "1.0x" -> "1.25x"
+                "1.25x" -> "1.5x"
+                else -> "1.0x"
+            }
+        }) {
+            Text(voiceSpeed)
+        }
+
+        Spacer(Modifier.height(8.dp))
+
+        Text("جودة الفيديو", color = Color.White)
+        Button(onClick = {
+            videoQuality =
+                if (videoQuality == "1080p") "720p"
+                else "1080p"
+        }) {
+            Text(videoQuality)
+        }
+    }
+}
+
 
 Spacer(Modifier.height(16.dp))
             Spacer(Modifier.height(25.dp))
