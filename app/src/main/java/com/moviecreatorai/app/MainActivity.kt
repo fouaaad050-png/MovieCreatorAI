@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MovieCreatorApp() {
     var videoUri by remember { mutableStateOf<Uri?>(null) }
+    var script by remember { mutableStateOf("") }
     val picker = rememberLauncherForActivityResult(
         ActivityResultContracts.OpenDocument()
     ) { uri -> videoUri = uri }
@@ -130,7 +131,15 @@ fun MovieCreatorApp() {
                     )
                 }
             }
+OutlinedTextField(
+    value = script,
+    onValueChange = { script = it },
+    label = { Text("اكتب السيناريو هنا") },
+    modifier = Modifier.fillMaxWidth(),
+    minLines = 4
+)
 
+Spacer(Modifier.height(16.dp))
             Spacer(Modifier.height(25.dp))
 
             Text(
